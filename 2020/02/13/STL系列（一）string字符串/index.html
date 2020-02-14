@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/7 | lemon</title>
+  <title>lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽窗棋罢指犹凉">
-<meta property="og:type" content="website">
+  <meta name="description" content="string">
+<meta property="og:type" content="article">
 <meta property="og:title" content="lemon">
-<meta property="og:url" content="http://yoursite.com/archives/2019/07/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/02/13/STL系列（一）string字符串/index.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="幽窗棋罢指犹凉">
+<meta property="og:description" content="string">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-14T09:13:12.385Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lemon">
-<meta name="twitter:description" content="幽窗棋罢指犹凉">
+<meta name="twitter:description" content="string">
   
     <link rel="alternative" href="/atom.xml" title="lemon" type="application/atom+xml">
   
@@ -165,49 +166,280 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-STL系列（一）string字符串" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="string"><a href="#string" class="headerlink" title="string"></a>string</h1><a id="more"></a>
+
+<h2 id="一、初始化"><a href="#一、初始化" class="headerlink" title="一、初始化"></a>一、初始化</h2><ul>
+<li><p>关于<strong>拷贝初始化</strong>和<strong>直接初始化</strong></p>
+<p>拷贝初始化：是直接使用等号，通过赋值来对一个string类型的字符串进行初始化；</p>
+<p>直接初始化：是利用string类的构造函数进行初始化；</p>
+</li>
+</ul>
+<blockquote>
+<p>string类型的构造函数：</p>
+<ol>
+<li><p>string s(str);</p>
+</li>
+<li><p>string s(num, c); //生成一个字符串，包含num个c字符</p>
+</li>
+<li><p>string s(strs, beg, end); //以区间[beg, end]内的字符作为字符串s的初值</p>
+</li>
+<li><p>string s(str, beg, len);</p>
+</li>
+<li><p>string s(str, dex); //将字符串str中从dex开始作为初值</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="二、长度获取"><a href="#二、长度获取" class="headerlink" title="二、长度获取"></a>二、长度获取</h2><p>string类型有5个关于长度的函数：</p>
+<blockquote>
+<ol>
+<li><p>size()  //和length()一样，可以获取当前字符串的长度（不包括’\0’）</p>
+</li>
+<li><p>length()</p>
+</li>
+<li><p>capacity()  //在当前不重新分配内存的情况下，能存多少字符</p>
+</li>
+<li><p>max_size()  //当前类型（string）能存多少字符，取决于自己的机器</p>
+</li>
+</ol>
+<p>   当然，这两个属性分别对应两个方法：<strong>resize()</strong> 和 <strong>reserve()</strong>。</p>
+<p>   使用 <strong>resize()</strong> 容器内的对象内存空间是真正存在的。</p>
+<p>   使用 <strong>reserve()</strong> 仅仅只是修改了 capacity 的值，容器内的对象并没有真实的内存空间(空间是”野”的)。</p>
+</blockquote>
+<ul>
+<li><p>关于capacity：</p>
+<p>往往会在vector等会进行预分配的容器中表现比较明显，可以用来知道当前一共分配了多少内存。</p>
+<p>例如：</p>
+</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="built_in">std</span>::<span class="built_in">vector</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"v.size() == "</span> &lt;&lt; v.size() &lt;&lt; <span class="string">" v.capacity() = "</span> &lt;&lt; v.capacity() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    v.reserve(<span class="number">10</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"v.size() == "</span> &lt;&lt; v.size() &lt;&lt; <span class="string">" v.capacity() = "</span> &lt;&lt; v.capacity() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">    v.resize(<span class="number">10</span>);</span><br><span class="line">    v.push_back(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"v.size() == "</span> &lt;&lt; v.size() &lt;&lt; <span class="string">" v.capacity() = "</span> &lt;&lt; v.capacity() &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">结果是：</span><br><span class="line">v.size() == <span class="number">0</span> v.capacity() = <span class="number">0</span></span><br><span class="line">v.size() == <span class="number">0</span> v.capacity() = <span class="number">10</span></span><br><span class="line">v.size() == <span class="number">11</span> v.capacity() = <span class="number">15</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="三、单个字符获取"><a href="#三、单个字符获取" class="headerlink" title="三、单个字符获取"></a>三、单个字符获取</h2><p>有两种方法：</p>
+<ul>
+<li>[]， 直接取下标</li>
+<li>at()函数</li>
+</ul>
+<p><strong>区别：</strong></p>
+<ul>
+<li>直接取下标不会检查下标中的数字是否越界；并且如果字符串是通过拷贝赋值的，可以取下标到 ‘\0’处；</li>
+<li>利用at()函数，会自动检查是否越界，并且如果取到 ’\0’处运行会直接报错；</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(<span class="number">8</span>,<span class="string">'m'</span>)</span></span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;s&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line"><span class="built_in">cout</span>&lt;&lt;s.at(<span class="number">8</span>)&lt;&lt;<span class="built_in">endl</span>;`</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<p><a href="..\image\res.png">..\image\res.png</a></p>
+<blockquote>
+<p>注意：</p>
+<p>两种方法返回的都是单个字符的引用，关于引用和指针的区别可以参考链接：</p>
+<p><a href="https://blog.csdn.net/smartgps2008/article/details/90648015" target="_blank" rel="noopener">https://blog.csdn.net/smartgps2008/article/details/90648015</a></p>
+</blockquote>
+<h2 id="四、比较操作"><a href="#四、比较操作" class="headerlink" title="四、比较操作"></a>四、比较操作</h2><ul>
+<li>compare()函数</li>
+<li>直接使用比较符号，如=、&gt;、&lt;、!=等</li>
+</ul>
+<blockquote>
+<p>compare()常用的有以下三个：</p>
+<ol>
+<li>compare(str)  //直接和字符串str按字典序进行比较</li>
+<li>compare(pos,  n, str)  //从pos位置开始长度为n的子字符串和str，按字典序进行比较</li>
+<li>compare(pos1, n1, str, pos2, n2)  //</li>
+</ol>
+<p>返回值情况：</p>
+<p>若小于str，返回小于0的值；</p>
+<p>若等于str，返回等于0的值；</p>
+<p>若大于str，返回大于0的值；</p>
+</blockquote>
+<h2 id="五、对字符串的修改"><a href="#五、对字符串的修改" class="headerlink" title="五、对字符串的修改"></a>五、对字符串的修改</h2><h3 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h3><ul>
+<li><p>assign()  通过赋值来对字符串进行修改</p>
+<blockquote>
+<p>assign(num, c);  //直接赋值num个字符c</p>
+<p>assign(str, start, end);  //使用字符串str的子串来赋值</p>
+<p>assign(str); //使用字符串str赋值</p>
+</blockquote>
+</li>
+<li><p>erases()   通过删除操作来对字符串进行修改</p>
+<blockquote>
+<p>erase(iterator loc);  //</p>
+<p>erase(iterator start, iterator end);  </p>
+</blockquote>
+</li>
+<li><p>insert()   通过插入字符来对字符串进行修改</p>
+<blockquote>
+<p>insert (pos, const string&amp; str);<br>insert ( pos, str, sublen);<br>insert (pos, const char* s, size_t n);<br>insert (pos,n, c);  //从位置pos开始，插入n个字符c<br>void insert (iterator p, size_t n, char c);  //注意这里的p是iterator类型<br>iterator insert (iterator p, char c);</p>
+</blockquote>
+<p>例子如下：</p>
+<p>``</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> str=<span class="string">"to be question"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> str2=<span class="string">"the "</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span> str3=<span class="string">"or not to be"</span>;</span><br><span class="line"><span class="built_in">std</span>::<span class="built_in">string</span>::iterator it;</span><br><span class="line">  </span><br><span class="line"><span class="comment">// used in the same order as described above:</span></span><br><span class="line">str.insert(<span class="number">6</span>,str2);                 <span class="comment">// to be (the )question</span></span><br><span class="line">str.insert(<span class="number">6</span>,str3,<span class="number">3</span>,<span class="number">4</span>);             <span class="comment">// to be (not )the question</span></span><br><span class="line">str.insert(<span class="number">10</span>,<span class="string">"that is cool"</span>,<span class="number">8</span>);    <span class="comment">// to be not (that is )the question</span></span><br><span class="line">str.insert(<span class="number">10</span>,<span class="string">"to be "</span>);            <span class="comment">// to be not (to be )that is the question</span></span><br><span class="line">str.insert(<span class="number">15</span>,<span class="number">1</span>,<span class="string">':'</span>);               <span class="comment">// to be not to be(:) that is the question</span></span><br><span class="line">it = str.insert(str.begin()+<span class="number">5</span>,<span class="string">','</span>); <span class="comment">// to be(,) not to be: that is the question</span></span><br><span class="line">str.insert (str.end(),<span class="number">3</span>,<span class="string">'.'</span>);       <span class="comment">// to be, not to be: that is the question(...)</span></span><br><span class="line">str.insert (it+<span class="number">2</span>,str3.begin(),str3.begin()+<span class="number">3</span>); <span class="comment">// (or )</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="追加"><a href="#追加" class="headerlink" title="追加"></a>追加</h3><ul>
+<li>append() </li>
+</ul>
+<blockquote>
+<p>append(string)</p>
+<p>append(str, num); //追加一个字符数组，最多num个字符</p>
+<p>append(string, index, len);  //追加一个string，从index开始len个字符</p>
+</blockquote>
+<h3 id="替换"><a href="#替换" class="headerlink" title="替换"></a>替换</h3><ul>
+<li>replace()</li>
+</ul>
+<p>比较常用的：</p>
+<blockquote>
+<p>replace(index, num, str);   //从index开始的num个字符替换为str</p>
+<p>replace(start, end, str);  //替换区间[start, end]之间的字符为str，其中start和end均为iterator类型</p>
+</blockquote>
+<blockquote>
+<p>参考自链接：<a href="http://c.biancheng.net/stl/" target="_blank" rel="noopener">http://c.biancheng.net/stl/</a></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wx.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-16T08:14:40.682Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/hello-world/">Hello World</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/13/STL系列（一）string字符串/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/02/14/STL系列（二）栈和队列/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2019/07/16/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -230,8 +462,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,

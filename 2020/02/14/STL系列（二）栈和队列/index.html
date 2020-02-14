@@ -6,18 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/7 | lemon</title>
+  <title>lemon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="幽窗棋罢指犹凉">
-<meta property="og:type" content="website">
+  <meta name="description" content="栈和队列一、栈先进先出结构 栈的常用操作 bool empty() void pop() void push(val) size() TYPE &amp;amp;top();  //返回对栈顶元素的引用  栈的应用 括号匹配问题  原理： 该问题之所以可以用栈，是因为我们知道，如果括号匹配是合理的，那么一对括号的左右两个之间，一定也是一对完整的左右括号，或者是空。 也就是说，如果括号匹配成功，那么对于任何">
+<meta property="og:type" content="article">
 <meta property="og:title" content="lemon">
-<meta property="og:url" content="http://yoursite.com/archives/2019/07/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/02/14/STL系列（二）栈和队列/index.html">
 <meta property="og:site_name" content="lemon">
-<meta property="og:description" content="幽窗棋罢指犹凉">
+<meta property="og:description" content="栈和队列一、栈先进先出结构 栈的常用操作 bool empty() void pop() void push(val) size() TYPE &amp;amp;top();  //返回对栈顶元素的引用  栈的应用 括号匹配问题  原理： 该问题之所以可以用栈，是因为我们知道，如果括号匹配是合理的，那么一对括号的左右两个之间，一定也是一对完整的左右括号，或者是空。 也就是说，如果括号匹配成功，那么对于任何">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-02-14T10:33:45.284Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="lemon">
-<meta name="twitter:description" content="幽窗棋罢指犹凉">
+<meta name="twitter:description" content="栈和队列一、栈先进先出结构 栈的常用操作 bool empty() void pop() void push(val) size() TYPE &amp;amp;top();  //返回对栈顶元素的引用  栈的应用 括号匹配问题  原理： 该问题之所以可以用栈，是因为我们知道，如果括号匹配是合理的，那么一对括号的左右两个之间，一定也是一对完整的左右括号，或者是空。 也就是说，如果括号匹配成功，那么对于任何">
   
     <link rel="alternative" href="/atom.xml" title="lemon" type="application/atom+xml">
   
@@ -165,49 +166,211 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-STL系列（二）栈和队列" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h1><h2 id="一、栈"><a href="#一、栈" class="headerlink" title="一、栈"></a>一、栈</h2><p><strong>先进先出结构</strong></p>
+<h3 id="栈的常用操作"><a href="#栈的常用操作" class="headerlink" title="栈的常用操作"></a>栈的常用操作</h3><ul>
+<li>bool empty()</li>
+<li>void pop()</li>
+<li>void push(val)</li>
+<li>size()</li>
+<li>TYPE &amp;top();  //返回对栈顶元素的引用</li>
+</ul>
+<h3 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h3><ul>
+<li><strong>括号匹配问题</strong></li>
+</ul>
+<p><strong>原理：</strong></p>
+<p>该问题之所以可以用栈，是因为我们知道，如果括号匹配是合理的，那么一对括号的左右两个之间，一定也是一对完整的左右括号，或者是空。</p>
+<p>也就是说，如果括号匹配成功，那么对于任何一个左括号，在遇见属于它自己的右括号之前，不可能会和其它的右括号匹配上。</p>
+<p>这时候我们可以考虑，对于下面这个式子：</p>
+<blockquote>
+<p>( [ ] )</p>
+</blockquote>
+<p>左圆括号在遇见右圆括号之前，不会和右方括号匹配，因为右方括号已经被匹配掉了。</p>
+<p>可以发现，如果我们遍历这串括号，是知道，右方括号是在右圆括号前面的，但是它却需要先被匹配掉。这是符合栈的原理的。</p>
+<ul>
+<li><strong>中缀表达式转后缀表达式问题</strong></li>
+</ul>
+<p>原理：</p>
+<p>可以先考虑我们手动转换的过程，即：把表达式的二叉树后序遍历一遍。</p>
+<p>后序遍历我们都知道，是先左后右再中间，那么我们可以考虑以下二叉树是怎么画出来的。</p>
+<ul>
+<li><strong>后缀表达式求值问题</strong></li>
+</ul>
+<p>原理：这个问题不一定非要用栈来求解。后缀表达式之所以有利于计算机的计算，就是因为它完全不用考虑优先级的问题。</p>
+<ul>
+<li>*<em>结合DFS走迷宫 *</em></li>
+</ul>
+<h2 id="二、队列"><a href="#二、队列" class="headerlink" title="二、队列"></a>二、队列</h2><p><strong>先进先出结构</strong></p>
+<h3 id="队列的常用操作"><a href="#队列的常用操作" class="headerlink" title="队列的常用操作"></a>队列的常用操作</h3><ul>
+<li>empty()</li>
+<li>pop()</li>
+<li>push()</li>
+<li>size()</li>
+<li>&amp;back();   //返回队列中最后一个元素的引用</li>
+<li>&amp;front()</li>
+</ul>
+<h3 id="队列的应用"><a href="#队列的应用" class="headerlink" title="队列的应用"></a>队列的应用</h3><h2 id="三、优先队列"><a href="#三、优先队列" class="headerlink" title="三、优先队列"></a>三、优先队列</h2><p>和队列基本一样，但其中的元素默认使用小于号进行排序，每次队列头的元素都是最小的。</p>
+<p>其中去除队列头使用函数 &amp;top()</p>
+<ul>
+<li>按照从大到小方法对优先队列中的元素排序：</li>
+</ul>
+<blockquote>
+<p> priority_queue&lt;int, vector<int>, greater<int>&gt;Q</int></int></p>
+</blockquote>
+<ul>
+<li>结构体优先队列</li>
+</ul>
+<blockquote>
+<p>struct node{<br>    int x;<br>    int y;<br>    friend bool operator&lt;(const node a,const node b)<br>    {<br>        return a.x&gt;b.x;<br>    }<br>};<br>priority_queue<node> Q;</node></p>
+<p><strong>这样是按照x从小到大</strong></p>
+</blockquote>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                    <div class="reward-box-item">
+                      <img class="reward-img" src="/img/wx.jpg">
+                      <span class="reward-type">微信</span>
+                    </div>
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/07/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-07-16T08:14:40.682Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/07/16/hello-world/">Hello World</a>
-    </h1>
-  
+      
 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/02/14/STL系列（二）栈和队列/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2020/02/14/STL系列（三）vector向量/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
-    </div></section>
+    <a href="/2020/02/13/STL系列（一）string字符串/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -230,8 +393,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
