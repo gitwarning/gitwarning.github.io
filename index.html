@@ -172,27 +172,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h1><h2 id="一、基本操作"><a href="#一、基本操作" class="headerlink" title="一、基本操作"></a>一、基本操作</h2><blockquote>
-<ol>
-<li><p>pop_back()</p>
-</li>
-<li><p>push_back(val)</p>
-</li>
-<li><p>end();   //返回指向最后一个元素之后位置的迭代器</p>
-</li>
-<li><p>start();  //返回指向第一个元素的迭代器</p>
-</li>
-<li><p>clear();  //清除了vector的内容，但是并没有回收空间</p>
-</li>
-<li><p>empty()</p>
-</li>
-</ol>
-</blockquote>
-<h2 id="二、应用"><a href="#二、应用" class="headerlink" title="二、应用"></a>二、应用</h2><p>vector其实就是一个链表结构</p>
-<ul>
-<li>最短路算法中，可以使用vector建立邻接表</li>
-</ul>
-
+        <h1 id="vector"><a href="#vector" class="headerlink" title="vector"></a>vector</h1>
+        
+          <a class="article-more-a" href="/2020/02/14/STL系列（三）vector向量/#more">... >></a>
+        
       
 
       
@@ -239,64 +222,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h1><h2 id="一、栈"><a href="#一、栈" class="headerlink" title="一、栈"></a>一、栈</h2><p><strong>先进先出结构</strong></p>
-<h3 id="栈的常用操作"><a href="#栈的常用操作" class="headerlink" title="栈的常用操作"></a>栈的常用操作</h3><ul>
-<li>bool empty()</li>
-<li>void pop()</li>
-<li>void push(val)</li>
-<li>size()</li>
-<li>TYPE &amp;top();  //返回对栈顶元素的引用</li>
-</ul>
-<h3 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h3><ul>
-<li><strong>括号匹配问题</strong></li>
-</ul>
-<p><strong>原理：</strong></p>
-<p>该问题之所以可以用栈，是因为我们知道，如果括号匹配是合理的，那么一对括号的左右两个之间，一定也是一对完整的左右括号，或者是空。</p>
-<p>也就是说，如果括号匹配成功，那么对于任何一个左括号，在遇见属于它自己的右括号之前，不可能会和其它的右括号匹配上。</p>
-<p>这时候我们可以考虑，对于下面这个式子：</p>
-<blockquote>
-<p>( [ ] )</p>
-</blockquote>
-<p>左圆括号在遇见右圆括号之前，不会和右方括号匹配，因为右方括号已经被匹配掉了。</p>
-<p>可以发现，如果我们遍历这串括号，是知道，右方括号是在右圆括号前面的，但是它却需要先被匹配掉。这是符合栈的原理的。</p>
-<ul>
-<li><strong>中缀表达式转后缀表达式问题</strong></li>
-</ul>
-<p>原理：</p>
-<p>可以先考虑我们手动转换的过程，即：把表达式的二叉树后序遍历一遍。</p>
-<p>后序遍历我们都知道，是先左后右再中间，那么我们可以考虑以下二叉树是怎么画出来的。</p>
-<ul>
-<li><strong>后缀表达式求值问题</strong></li>
-</ul>
-<p>原理：这个问题不一定非要用栈来求解。后缀表达式之所以有利于计算机的计算，就是因为它完全不用考虑优先级的问题。</p>
-<ul>
-<li>*<em>结合DFS走迷宫 *</em></li>
-</ul>
-<h2 id="二、队列"><a href="#二、队列" class="headerlink" title="二、队列"></a>二、队列</h2><p><strong>先进先出结构</strong></p>
-<h3 id="队列的常用操作"><a href="#队列的常用操作" class="headerlink" title="队列的常用操作"></a>队列的常用操作</h3><ul>
-<li>empty()</li>
-<li>pop()</li>
-<li>push()</li>
-<li>size()</li>
-<li>&amp;back();   //返回队列中最后一个元素的引用</li>
-<li>&amp;front()</li>
-</ul>
-<h3 id="队列的应用"><a href="#队列的应用" class="headerlink" title="队列的应用"></a>队列的应用</h3><h2 id="三、优先队列"><a href="#三、优先队列" class="headerlink" title="三、优先队列"></a>三、优先队列</h2><p>和队列基本一样，但其中的元素默认使用小于号进行排序，每次队列头的元素都是最小的。</p>
-<p>其中去除队列头使用函数 &amp;top()</p>
-<ul>
-<li>按照从大到小方法对优先队列中的元素排序：</li>
-</ul>
-<blockquote>
-<p> priority_queue&lt;int, vector<int>, greater<int>&gt;Q</int></int></p>
-</blockquote>
-<ul>
-<li>结构体优先队列</li>
-</ul>
-<blockquote>
-<p>struct node{<br>    int x;<br>    int y;<br>    friend bool operator&lt;(const node a,const node b)<br>    {<br>        return a.x&gt;b.x;<br>    }<br>};<br>priority_queue<node> Q;</node></p>
-<p><strong>这样是按照x从小到大</strong></p>
-</blockquote>
-
+        <h1 id="栈和队列"><a href="#栈和队列" class="headerlink" title="栈和队列"></a>栈和队列</h1>
+        
+          <a class="article-more-a" href="/2020/02/14/STL系列（二）栈和队列/#more">... >></a>
+        
       
 
       
